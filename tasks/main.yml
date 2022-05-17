@@ -1,4 +1,13 @@
 ---
+- name: Install epel
+  shell: |
+      sudo yum update -y
+      sudo amazon-linux-extras install epel -y
+      sudo yum-config-manager --enable epel
+      sudo amazon-linux-extras install nginx1 -y
+      sudo amazon-linux-extras enable php7.4
+      sudo yum install -y php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd ,gettext,bcmath,json,xml,fpm,intl,zip,imap}
+
 - name: Remove files config
   file:
     path: "{{ item }}"
@@ -18,8 +27,6 @@
     - { src: www.conf.j2, dest: /etc/php-fpm.d/www.conf }
     - { src: wordpress.conf.j2, dest: /etc/nginx/conf.d/wordpress.conf }
     - { src: nginx.conf.j2, dest: /etc/nginx/nginx.conf }
-  notify:
-    - restart nginx
-    - restart php-fpm
+
 
 
