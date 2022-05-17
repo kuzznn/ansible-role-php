@@ -1,0 +1,25 @@
+---
+- name: Remove files config
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/php.ini
+    - /etc/php-fpm.d/www.conf
+    - /etc/nginx/conf.d/wordpress.conf
+    - /etc/nginx/nginx.conf
+
+- name: Insert file config
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: php.ini.j2, dest: /etc/php.ini }
+    - { src: www.conf.j2, dest: /etc/php-fpm.d/www.conf }
+    - { src: wordpress.conf.j2, dest: /etc/nginx/conf.d/wordpress.conf }
+    - { src: nginx.conf.j2, dest: /etc/nginx/nginx.conf }
+  notify:
+    - restart nginx
+    - restart php-fpm
+
+

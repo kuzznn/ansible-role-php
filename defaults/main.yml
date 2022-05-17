@@ -1,0 +1,17 @@
+---
+post_max_size: '64'
+memory_limit: '256'
+max_execution_time: '300'
+upload_max_filesize: '32'
+date_timezone: 'Asia/Ho_Chi_Minh'
+
+# Variable for /etc/php-fpm.d/www.conf
+user: 'nginx'
+group: 'nginx'
+listen: '/run/php-fpm/www.sock'
+listen_mode: '0660'
+
+# Variable for /etc/nginx/conf.d/wordpress.conf
+port_listen: ''
+link_root: ''
+server_name: '' 
